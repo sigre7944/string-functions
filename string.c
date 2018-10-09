@@ -4,7 +4,7 @@
 int my_strlen(char *s)
 {
 	int count = 0;
-	while (s[count] != '\0')
+	while (s[count] != '\0') //if it is not end of string
 	{
 		count ++;
 	}
@@ -17,7 +17,7 @@ int str2upper(char *s)
 	int i=0, count = 0;
 	while (*(s+i) != '\0')
 	{
-		if ((*(s+i) >= 'a') && (*(s+i) <= 'z'))
+		if ((*(s+i) >= 'a') && (*(s+i) <= 'z')) //check if it is lower case
 		{
 			*(s+i) = *(s+i) -'a'+'A';
 			count++;
@@ -33,7 +33,7 @@ int str2lower_(char *s)
 	int i = 0, count = 0;
 	while (*(s+i) != '\0')
 	{
-		if ((*(s+i) >= 'A') && (*(s+i) <= 'Z'))
+		if ((*(s+i) >= 'A') && (*(s+i) <= 'Z')) //check if it is upper case
 		{
 			*(s+i) = *(s+i) -'A'+'a';
 			count++;
@@ -47,14 +47,29 @@ int str2lower_(char *s)
 //removes all occurrences of numbers, Function returns new length of the string
 int str_strip_numbers(char *s)
 {
-	int i = 0, count = 0;
-	while (*(s+i) != '\0')
+	int i = 0,  count = 0, size, j;
+	
+	while (*(s+i) != '\0') //check if end of string
 	{
-		if ((*(s+i) < 48) || (*(s+i) > 57))
+	i++;
+	}
+	size = i;
+	
+	for (i = 0; i < size; i++)
+	{
+		if (!isdigit(*(s+i)))
 		{
 			count++;
 		}
-	i++;
+		else if (isdigit(*(s+i))) //check if it is number
+		{
+			for (j = i; j < size; j ++)
+			{
+				s[j] = s[j+1];
+			}
+			i--;
+			size --;
+		}
 	}
 	
 	return count;
@@ -108,7 +123,7 @@ int mystrcmp (char *s, char *d)
 char * strdupl(char *s)
 {
 	char *d;
-	d = (char *) malloc(sizeof(*s));
+	d = (char *) malloc(sizeof(*s)); //making space
 	int i = 0;
 	while (*(s+i) != '\0')
 	{
